@@ -19,6 +19,7 @@ interface CountryData {
 export const Country: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isCovidData, setIsCovidData] = useState<CountryData[]>([]);
+  const [searchValue, setSearchValue] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const limit: number = 7;
 
@@ -38,6 +39,16 @@ export const Country: React.FC = () => {
     };
     getCovidData();
   }, [page]);
+
+  const searchCountry = async (event: any) => {
+    setSearchValue(event.target.value)
+
+    await axios.get(`http://localhost:8000/covid/covid-api?search=${searchValue}`)
+    .then((res) => {
+      const data = res.data;
+      setIsCovidData(data);
+    })
+  }
 
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);
@@ -95,7 +106,7 @@ export const Country: React.FC = () => {
             </div>
             <input
               type="text"
-              // onChange={handleFilterChange}
+              onChange={searchCountry}
               id="default-search"
               className="block w-full p-4 pl-10 text-sm transition duration-300 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search Countries..."
@@ -171,7 +182,7 @@ export const Country: React.FC = () => {
               </tbody>
             </table>
           )}
-          {!isLoading && <div className="py-4 flex">
+          {!isLoading && <div className="py-4 flex justify-end">
             <button
               className="bg-blue-500 mx-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
               onClick={handlePrevPage}
