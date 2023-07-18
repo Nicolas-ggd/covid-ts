@@ -23,22 +23,20 @@ export const Country: React.FC = () => {
   const limit: number = 7;
 
   useEffect(() => {
-    const covidList = async () => {
+    const getCovidData = async () => {
       setIsLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:8000/covid/covid-api?limit=${limit}&skip=${page}`
+          `http://localhost:8000/covid/covid-api?limit=${limit}&page=${page}`
         );
-        const data: CountryData[] = res.data;
-
+        const data = res.data;
         setIsLoading(false);
-        setIsCovidData((prevData) => [...prevData, ...data]);
+        setIsCovidData(data);
       } catch (error) {
         console.log(error);
       }
     };
-
-    covidList();
+    getCovidData();
   }, [page]);
 
   const handleNextPage = () => {
@@ -132,7 +130,7 @@ export const Country: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {isCovidData &&
+                {!isLoading && isCovidData &&
                   isCovidData?.map((item, index) => {
                     return (
                       <tr
@@ -173,17 +171,22 @@ export const Country: React.FC = () => {
               </tbody>
             </table>
           )}
-        </div>
-        <div>
-          <button onClick={handlePrevPage} disabled={page === 1}>
-            Previous Page
-          </button>
-          <button
-            onClick={handleNextPage}
-            disabled={isCovidData.length < limit}
-          >
-            Next Page
-          </button>
+          {!isLoading && <div className="py-4 flex">
+            <button
+              className="bg-blue-500 mx-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              onClick={handlePrevPage}
+              disabled={page === 1}
+            >
+              Previous Page
+            </button>
+            <button
+              className="bg-blue-500 mx-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              onClick={handleNextPage}
+              disabled={isCovidData.length < limit}
+            >
+              Next Page
+            </button>
+          </div>}
         </div>
       </div>
     </div>
