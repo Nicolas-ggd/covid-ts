@@ -31,7 +31,7 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
     event.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:8000/auth", {
+      const res = await axios.post("https://astounding-entremet-7a8d55.netlify.app/auth", {
         email: signInData.email,
         password: signInData.password,
         verificationCode: searchParamsCode,

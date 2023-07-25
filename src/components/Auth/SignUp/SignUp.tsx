@@ -46,7 +46,7 @@ export const SignUp: React.FC<SignUpProps> = ({
     event.preventDefault();
 
     try {
-      await axios.post("http://localhost:8000/register", {
+      await axios.post("https://astounding-entremet-7a8d55.netlify.app/register", {
         name: signUpData.name,
         email: signUpData.email,
         password: signUpData.password,
