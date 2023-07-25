@@ -21,13 +21,12 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   const navigate = useNavigate();
   const [isError, setIsError] = useState<Boolean>(false);
   const [isSendingError, setIsSendingError] = useState<Boolean>(false);
-  const [isSendInEmail, setIsSendInEmail] = useState<Boolean>(false);
   const [isSend, setIsSend] = useState<Boolean>(false);
   const [isSuccessSend, setIsSuccessSend] = useState<Boolean>(false);
   const [resetData, setResetData] = useState<ResetData>({
     email: "",
   });
-  const [searchToken, setSearchToken] = useSearchParams();
+  const [searchToken] = useSearchParams();
   const searchParamsToken = searchToken.get("token");
   const [newPassword, setNewPassword] = useState<NewPassword>({
     password: "",
@@ -47,12 +46,11 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
       })
       .then(() => {
         setIsSend(false);
-        setIsSendInEmail(true);
         setIsSuccessSend(true);
       });
   };
 
-  const submitUserToken = async (event: FormEvent<HTMLFormElement>) => {
+  const submitUserToken = async (event: FormEvent<HTMLButtonElement>) => {
     if (
       newPassword?.password?.length === 0 &&
       newPassword?.confirmPassword?.length === 0 &&
@@ -83,7 +81,8 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   };
 
   useEffect(() => {
-    submitUserToken();
+    const dummyEvent: any = {};
+    submitUserToken(dummyEvent);
   }, [searchToken]);
 
   return (
@@ -97,7 +96,6 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
               </h1>
               <form
                 className="space-y-4 md:space-y-6"
-                onSubmit={submitEmailToResetPassword}
               >
                 <div>
                   <label
@@ -192,7 +190,6 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
               </h1>
               <form
                 className="space-y-4 md:space-y-6"
-                onSubmit={submitUserToken}
               >
                 <div>
                   <label
@@ -260,19 +257,6 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
                       }));
                     }}
                   />
-                  {/* {newPassword?.password === newPassword?.confirmPassword &&
-                    newPassword?.confirmPassword && (
-                      <CheckCircleOutlineIcon
-                        className="absolute bottom-2 right-2"
-                        style={{
-                          color:
-                            newPassword?.confirmPassword ===
-                            newPassword?.password
-                              ? "green"
-                              : "",
-                        }}
-                      />
-                    )} */}
                 </div>
                 {isError &&
                   (newPassword?.confirmPassword !== newPassword?.password ||
@@ -282,7 +266,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
                     </span>
                   )}
                 <button
-                //   onClick={submitUserToken}
+                  onClick={submitUserToken}
                   type="button"
                   className="w-full mt-2 transition delay-50 border-none text-white bg-sky-400 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 outline-none"
                 >
