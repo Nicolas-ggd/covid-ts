@@ -12,7 +12,10 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
   const [isAuthnticate, setIsAuthnticate] = useState<boolean>(false);
   const [isErrorMessage, setIsErrorMessage] = useState<string>("");
   const [isForgot, setIsForgot] = useState<boolean>(false);
-  const [signInData, setSignInData] = useState<{ email: string; password: string }>({
+  const [signInData, setSignInData] = useState<{
+    email: string;
+    password: string;
+  }>({
     email: "",
     password: "",
   });
@@ -23,7 +26,7 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
     setIsForgot((prevIsForgot) => !prevIsForgot);
   };
 
-  const submitSignInData = async (event: FormEvent<HTMLFormElement>) => {
+  const submitSignInData = async (event: FormEvent<HTMLButtonElement>) => {
     if (signInData?.email?.length === 0 || signInData?.password?.length === 0) {
       return setIsError(true);
     }
@@ -41,7 +44,8 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
       console.log(data);
       navigate("/country");
     } catch (error: any) {
-      const errorMessage = error?.response?.data?.message || "Authentication failed";
+      const errorMessage =
+        error?.response?.data?.message || "Authentication failed";
       setIsAuthnticate(true);
       setIsErrorMessage(errorMessage);
     }
@@ -56,13 +60,21 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
               <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-gray-900 dark:text-white">
                 Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6" onSubmit={submitSignInData}>
+              <form
+                className="space-y-4 md:space-y-6"
+              >
                 <div>
-                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
                     Your email
                   </label>
                   <input
-                    style={{ borderColor: isError && signInData?.email?.length === 0 ? "red" : "" }}
+                    style={{
+                      borderColor:
+                        isError && signInData?.email?.length === 0 ? "red" : "",
+                    }}
                     type="email"
                     name="email"
                     id="email"
@@ -71,20 +83,33 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
                     required
                     value={signInData.email}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setSignInData((prevSendData) => ({ ...prevSendData, email: e.target.value }))
+                      setSignInData((prevSendData) => ({
+                        ...prevSendData,
+                        email: e.target.value,
+                      }))
                     }
                   />
                 </div>
                 {isError && signInData?.email?.length <= 0 && (
-                  <span style={{ color: "red", margin: "3px" }}>Please fill the email</span>
+                  <span style={{ color: "red", margin: "3px" }}>
+                    Please fill the email
+                  </span>
                 )}
 
                 <div>
-                  <label htmlFor="password" className="block mb-2 text-sm font-medium dark:text-white text-gray-900">
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium dark:text-white text-gray-900"
+                  >
                     Password
                   </label>
                   <input
-                    style={{ borderColor: isError && signInData?.password?.length === 0 ? "red" : "" }}
+                    style={{
+                      borderColor:
+                        isError && signInData?.password?.length === 0
+                          ? "red"
+                          : "",
+                    }}
                     type="password"
                     name="password"
                     id="password"
@@ -93,12 +118,17 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
                     required
                     value={signInData.password}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setSignInData((prevSendData) => ({ ...prevSendData, password: e.target.value }))
+                      setSignInData((prevSendData) => ({
+                        ...prevSendData,
+                        password: e.target.value,
+                      }))
                     }
                   />
                 </div>
                 {isError && signInData?.password?.length === 0 && (
-                  <span style={{ color: "red", margin: "3px" }}>Please fill the password</span>
+                  <span style={{ color: "red", margin: "3px" }}>
+                    Please fill the password
+                  </span>
                 )}
 
                 <div className="flex items-center justify-between">
@@ -113,17 +143,25 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
                       />
                     </div>
                     <div className="ml-3 text-sm text-gray-300 text-gray-500">
-                      <label htmlFor="remember" className="block mb-2 text-sm font-medium text-dark dark:text-white">
+                      <label
+                        htmlFor="remember"
+                        className="block mb-2 text-sm font-medium text-dark dark:text-white"
+                      >
                         Remember me
                       </label>
                     </div>
                   </div>
-                  <Link onClick={toggleForgotPassword} to="/reset-password" className="transition text-sky-400 hover:text-sky-700 transition duration-200 hover:underline text-sm mb-2 isDarkMode dark:text-white text-gray-900">
+                  <Link
+                    onClick={toggleForgotPassword}
+                    to="/reset-password"
+                    className="transition text-sky-400 hover:text-sky-700 transition duration-200 hover:underline text-sm mb-2 isDarkMode dark:text-white text-gray-900"
+                  >
                     Forgot password?
                   </Link>
                 </div>
 
                 <button
+                  onClick={submitSignInData}
                   type="button"
                   className="w-full transition delay-50 border-none text-white bg-sky-400 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 outline-none"
                 >
@@ -132,7 +170,10 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
 
                 <p className="block mb-2 text-sm font-medium text-dark text-gray-900 dark:text-white">
                   Don't have an account yet?{" "}
-                  <a onClick={closeSignIn} className="font-medium text-sky-400 hover:text-sky-700 transition duration-200 hover:underline dark:text-primary-500 cursor-pointer outline-none">
+                  <a
+                    onClick={closeSignIn}
+                    className="font-medium text-sky-400 hover:text-sky-700 transition duration-200 hover:underline dark:text-primary-500 cursor-pointer outline-none"
+                  >
                     Sign up
                   </a>
                 </p>
