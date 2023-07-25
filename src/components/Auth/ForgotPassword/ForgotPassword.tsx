@@ -3,7 +3,7 @@ import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface ForgotPasswordProps {
-  toggleForgotPassword: () => void;
+  toggleForgotPassword?: () => void;
 }
 
 interface ResetData {

@@ -3,7 +3,7 @@ import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 interface SignInProps {
-  closeSignIn: () => void;
+  closeSignIn?: () => void;
 }
 
 export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
