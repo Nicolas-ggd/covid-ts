@@ -18,7 +18,6 @@ export const SignUp: React.FC<SignUpProps> = ({
 }) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  const [isNotified, setIsNotified] = useState<boolean>(false);
   const [isSend, setIsSend] = useState<boolean>(false);
   const [isSuccessSend, setIsSuccessSend] = useState<boolean>(false);
   const [signUpData, setSignUpData] = useState<SignUpData>({
@@ -55,7 +54,6 @@ export const SignUp: React.FC<SignUpProps> = ({
 
       setIsSend(false);
       setIsSuccessSend(true);
-      setIsNotified(true);
     } catch (error) {
       console.error(error);
       setIsSend(false);
