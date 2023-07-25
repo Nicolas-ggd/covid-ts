@@ -9,8 +9,6 @@ interface SignInProps {
 export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
   const navigate = useNavigate();
   const [isError, setIsError] = useState<boolean>(false);
-  const [isAuthnticate, setIsAuthnticate] = useState<boolean>(false);
-  const [isErrorMessage, setIsErrorMessage] = useState<string>("");
   const [isForgot, setIsForgot] = useState<boolean>(false);
   const [signInData, setSignInData] = useState<{
     email: string;
@@ -46,8 +44,7 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || "Authentication failed";
-      setIsAuthnticate(true);
-      setIsErrorMessage(errorMessage);
+        console.log(errorMessage);
     }
   };
 
