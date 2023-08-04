@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent } from "react";
 import axios from "axios";
-// import { CheckCircleOutlineIcon } from "@mui/icons-material/CheckCircleOutline";
+import CheckIcon from '@mui/icons-material/Check';
 
 interface SignUpProps {
   closeSignUp: () => void;
@@ -241,7 +241,7 @@ export const SignUp: React.FC<SignUpProps> = ({
                   </span>
                 )}
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full text-white transition dark:text-white delay-50 border-none bg-sky-400 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   Create an account
@@ -281,7 +281,7 @@ export const SignUp: React.FC<SignUpProps> = ({
               />
             </svg>
             <span className="sr-only">Loading...</span>
-            <h2 className="p-4">
+            <h2 className="p-4 dark:text-white">
               A verification link has been send to your email.
             </h2>
           </div>
@@ -290,8 +290,8 @@ export const SignUp: React.FC<SignUpProps> = ({
       {isSuccessSend && !isSend && (
         <div role="status">
           <div className="flex flex-col items-center justify-center h-screen w-screen">
-            {/* <CheckCircleOutlineIcon color="success" fontSize="large" /> */}
-            <h2 className="p-3">
+            <CheckIcon color="success" fontSize="large" />
+            <h2 className="p-3 dark:text-white">
               Please check your email and verify your account.
             </h2>
           </div>
