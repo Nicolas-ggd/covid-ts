@@ -7,7 +7,7 @@ export const Header = () => {
     const userId = localStorage.getItem('userId');
 
     const userLogOut = async () => {
-        await axios.post("https://astounding-entremet-7a8d55.netlify.app/logout", {
+        await axios.post("https://covid19-api-rj18.onrender.com/logout", {
             userId: userId
         })
             .then(() => {

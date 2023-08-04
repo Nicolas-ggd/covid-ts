@@ -28,7 +28,7 @@ export const Country: React.FC = () => {
       setIsLoading(true);
       try {
         const res = await axios.get(
-          `https://astounding-entremet-7a8d55.netlify.app/covid/covid-api?limit=${limit}&page=${page}`
+          `https://covid19-api-rj18.onrender.com/covid/covid-api?limit=${limit}&page=${page}`
         );
         const data = res.data;
         setIsLoading(false);
@@ -43,7 +43,7 @@ export const Country: React.FC = () => {
   const searchCountry = async (event: any) => {
     setSearchValue(event.target.value)
 
-    await axios.get(`https://astounding-entremet-7a8d55.netlify.app/covid/covid-api?search=${searchValue}`)
+    await axios.get(`https://covid19-api-rj18.onrender.com/covid/covid-api?search=${searchValue}`)
     .then((res) => {
       const data = res.data;
       setIsCovidData(data);

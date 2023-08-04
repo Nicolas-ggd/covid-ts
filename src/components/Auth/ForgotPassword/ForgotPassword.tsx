@@ -41,7 +41,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
     setIsSend(true);
 
     await axios
-      .post("https://astounding-entremet-7a8d55.netlify.app/reset-password", {
+      .post("https://covid19-api-rj18.onrender.com/reset-password", {
         email: resetData?.email,
       })
       .then(() => {
@@ -63,7 +63,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
     if (searchToken.get("token")) {
       try {
         await axios
-          .post("https://astounding-entremet-7a8d55.netlify.app/reset-password/user-token", {
+          .post("https://covid19-api-rj18.onrender.com/reset-password/user-token", {
             token: searchToken.get("token"),
             password: newPassword?.password,
             confirmPassword: newPassword?.confirmPassword,
