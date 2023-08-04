@@ -24,27 +24,29 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
     setIsForgot((prevIsForgot) => !prevIsForgot);
   };
 
-  const submitSignInData = async (event: FormEvent<HTMLButtonElement>) => {
+  const submitSignInData = async (event: FormEvent<HTMLFormElement>) => {
     if (signInData?.email?.length === 0 || signInData?.password?.length === 0) {
       return setIsError(true);
     }
     event.preventDefault();
 
     try {
-      const res = await axios.post("https://covid19-api-rj18.onrender.com/auth", {
-        email: signInData.email,
-        password: signInData.password,
-        verificationCode: searchParamsCode,
-      });
-      const data = res.data;
-      localStorage.setItem("access_token", data?.access_token);
-      localStorage.setItem("userId", data?._id);
-      console.log(data);
-      navigate("/country");
+      await axios
+        .post("https://covid19-api-rj18.onrender.com/auth", {
+          email: signInData.email,
+          password: signInData.password,
+          verificationCode: searchParamsCode,
+        })
+        .then((res) => {
+          const data = res.data;
+          localStorage.setItem("access_token", data?.access_token);
+          localStorage.setItem("userId", data?._id);
+          navigate("/country");
+        });
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || "Authentication failed";
-        console.log(errorMessage);
+      console.log(errorMessage);
     }
   };
 
@@ -59,6 +61,7 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
               </h1>
               <form
                 className="space-y-4 md:space-y-6"
+                onSubmit={submitSignInData}
               >
                 <div>
                   <label
@@ -158,8 +161,7 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
                 </div>
 
                 <button
-                  onClick={submitSignInData}
-                  type="button"
+                  type="submit"
                   className="w-full transition delay-50 border-none text-white bg-sky-400 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 outline-none"
                 >
                   Sign in
