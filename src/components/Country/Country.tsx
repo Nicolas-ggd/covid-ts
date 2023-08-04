@@ -43,6 +43,10 @@ export const Country: React.FC = () => {
   const searchCountry = async (event: any) => {
     setSearchValue(event.target.value)
 
+    if (searchValue.trim() === "") {
+      setIsCovidData([]);
+    }
+
     await axios.get(`https://covid19-api-rj18.onrender.com/covid/covid-api?search=${searchValue}`)
     .then((res) => {
       const data = res.data;

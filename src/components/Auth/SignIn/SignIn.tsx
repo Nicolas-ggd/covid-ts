@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
 
 interface SignInProps {
   closeSignIn?: () => void;
@@ -19,6 +20,7 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
   });
   const [searchVerifyCode] = useSearchParams();
   const searchParamsCode = searchVerifyCode.get("verifyCode");
+  const accessToken = localStorage.getItem("access_token");
 
   const toggleForgotPassword = () => {
     setIsForgot((prevIsForgot) => !prevIsForgot);
@@ -49,6 +51,12 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
       console.log(errorMessage);
     }
   };
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/country");
+    }
+  }, []);
 
   return (
     <section className="bg-gray-50 dark:bg-gray-800 transiton duration-300">
